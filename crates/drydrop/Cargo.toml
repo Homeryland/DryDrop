@@ -1,0 +1,21 @@
+[package]
+name = "drydrop"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+default = []
+server = [
+    "dep:toasty",
+    "dep:drydrop-domain",
+    "drydrop-domain/server",
+]
+desktop = ["dep:drydrop-domain"]
+mobile = ["dep:drydrop-domain"]
+web = ["dep:drydrop-domain"]
+tui = ["dep:drydrop-domain"]
+cli = ["dep:drydrop-domain"]
+
+[dependencies]
+drydrop-domain = { path = "../drydrop-domain", optional = true }
+toasty = { workspace = true, optional = true }

@@ -1,0 +1,5 @@
+[tasks.ios]
+run = "dx serve --ios"
+
+[tasks.android]
+run = "dx serve --android"

@@ -1,0 +1,2 @@
+[tasks.dev]
+run = "dx serve"

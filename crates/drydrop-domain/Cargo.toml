@@ -1,0 +1,14 @@
+[package]
+name = "drydrop-domain"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+default = []
+server = ["dep:toasty", "toasty/serde", "toasty/jiff"]
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+jiff = { workspace = true }
+toasty = { workspace = true, optional = true }

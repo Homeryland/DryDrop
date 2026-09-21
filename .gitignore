@@ -1,0 +1,17 @@
+.vscode/
+.idea/
+.zed/
+.delta/
+
+/node_modules
+/target
+logs/
+
+.fnox.local.toml
+.env.dev
+.env.test
+.env.prod
+
+deployments/docker/postgres/
+deployments/docker/redis/
+deployments/docker/rabbitmq/

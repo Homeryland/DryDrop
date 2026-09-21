@@ -1,0 +1,118 @@
+monorepo_root = true
+
+[monorepo]
+config_roots = [
+    "crates/*",
+    "apps/*",
+    "deployments/*"
+]
+
+[tools]
+"rust" = {
+    version = "1.98.1",
+    components = [
+        "rust-src",
+        "rust-analyzer",
+        "llvm-tools"
+    ],
+    target = [
+        "wasm32-unknown-unknown",
+        "aarch64-apple-ios",
+        "aarch64-apple-ios-sim",
+        "aarch64-linux-android",
+        "armv7-linux-androideabi",
+        "i686-linux-android",
+        "x86_64-linux-android"
+    ],
+    mr_boxington = true
+}
+"cargo:dioxus-cli" = "0.7.10"
+"cargo:hurl" = "8.0.1"
+"cargo:sqlx-cli" = "0.9.0"
+"pnpm" = "12.5.1"
+"watchexec" = "2.7.3"
+"mr-boxington" = "1.14.0"
+
+[tasks.bootstrap]
+run = [
+    "pnpm install",
+    "pnpm exec tailwindcss -i crates/dioxus-components/tailwind.css -o crates/dioxus-components/assets/tailwind.css",
+]
+
+[tasks.doc]
+run = "mise run //docs:dev"
+
+[tasks.infra-dev-up]
+run = "mise run //deployments/docker:dev-up"
+
+[tasks.infra-prod-up]
+run = "mise run //deployments/docker:prod-up"
+
+[tasks.infra-test-up]
+run = "mise run //deployments/docker:test-up"
+
+[tasks.infra-dev-down]
+run = "mise run //deployments/docker:dev-down"
+
+[tasks.infra-test-down]
+run = "mise run //deployments/docker:test-down"
+
+[tasks.infra-prod-down]
+run = "mise run //deployments/docker:prod-down"
+
+[tasks.server-dev]
+depends = ["infra-dev-up"]
+run = "mise run //apps/server:dev"
+depends_post = ["infra-dev-down"]
+
+[tasks.server-test]
+depends = ["infra-test-up"]
+run = "mise run //apps/server:test"
+depends_post = ["infra-test-down"]
+
+[tasks.server-prod]
+depends = ["infra-prod-up"]
+run = "mise run //apps/server:prod"
+depends_post = ["infra-prod-down"]
+
+
+[tasks.cli]
+run = "mise run //apps/cli:dev"
+
+[tasks.tui]
+run = "mise run //apps/tui:dev"
+
+[tasks.web]
+run = [
+    { tasks = ["//crates/dioxus-components:tailwind", "//apps/web:dev"]}
+]
+
+[tasks.desktop]
+run = [
+    { tasks = ["//crates/dioxus-components:tailwind", "//apps/desktop:dev"]}
+]
+
+[tasks.ios]
+run = [
+    { tasks = ["//crates/dioxus-components:tailwind", "//apps/mobile:ios"]}
+]
+
+[tasks.android]
+run = [
+    { tasks = ["//crates/dioxus-components:tailwind", "//apps/mobile:android"]}
+]
+
+[tasks.api-test]
+run = "hurl tests/hurl --test"
+
+[tasks.check]
+run = "mbx check --workspace --all-features"
+
+[tasks.test]
+run = "mbx test --workspace --all-features"
+
+[tasks.clippy]
+run = "mbx clippy --workspace --all-features -- -D warnings"
+
+[tasks.fmt]
+run = "mbx fmt --all -- --check"

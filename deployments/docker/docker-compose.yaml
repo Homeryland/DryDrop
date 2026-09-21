@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: postgres
+    environment:
+        POSTGRES_USER: ${POSTGRES__USER}
+        POSTGRES_PASSWORD: ${POSTGRES__PASSWORD}
+        POSTGRES_DB: ${POSTGRES__DB}
+    volumes:
+      - ./postgres:/var/lib/postgresql
+      - ./postgres/init:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+  redis:
+    image: redis:8-alpine
+    container_name: redis
+    volumes:
+      - ./redis:/data
+    ports:
+      - 6379:6379
+    restart: unless-stopped
+  rabbitmq:
+    image: rabbitmq:4-management-alpine
+    container_name: rabbitmq
+    volumes:
+      - ./rabbitmq:/var/lib/rabbitmq
+    ports:
+      - "5552:5552"
+      - "15672:15672"
+      - "5672:5672"
+    command: >
+      sh -c '
+        rabbitmq-plugins enable --offline rabbitmq_stream rabbitmq_stream_management &&
+        rabbitmq-server
+      '
+    restart: unless-stopped

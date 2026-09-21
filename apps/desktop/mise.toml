@@ -1,0 +1,8 @@
+[tasks.dev]
+run = "RUST_ENV=dev dx serve"
+
+[tasks.test]
+run = "RUST_ENV=test dx serve"
+
+[tasks.prod]
+run = "RUST_ENV=prod dx serve"

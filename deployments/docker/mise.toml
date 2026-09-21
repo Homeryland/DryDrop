@@ -1,0 +1,33 @@
+[tasks.dev-up]
+run = [
+    "rm -rf postgres",
+    "mkdir -p postgres/init",
+    "cp create-database.sql postgres/init/create-database.sql",
+    "docker compose --env-file ../../config/.env.dev up -d"
+]
+
+[tasks.test-up]
+run = [
+    "rm -rf postgres",
+    "mkdir -p postgres/init",
+    "cp create-database.sql postgres/init/create-database.sql",
+    "docker compose --env-file ../../config/.env.test up -d"
+]
+
+[tasks.prod-up]
+run = [
+    "rm -rf postgres",
+    "mkdir -p postgres/init",
+    "cp create-database.sql postgres/init/create-database.sql",
+    "docker compose --env-file ../../config/.env.prod up -d"
+]
+
+
+[tasks.dev-down]
+run = "docker compose --env-file ../../config/.env.dev down"
+
+[tasks.test-down]
+run = "docker compose --env-file ../../config/.env.test down"
+
+[tasks.prod-down]
+run = "docker compose --env-file ../../config/.env.prod down"
