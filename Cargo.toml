@@ -35,7 +35,7 @@ uuid = { version = "1.26.0", features = ["serde", "v7", "js"] }
 jiff = { version = "0.2.37", features = ["serde"] }
 time = { version = "0.3.55" }
 # Password hashing
-argon2 = { version = "0.5.3" }
+argon2 = { version = "0.6.0" }
 # JWT
 jsonwebtoken = { version = "11.1.0", features = ["rust_crypto"] }
 # Middleware

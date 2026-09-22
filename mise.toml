@@ -7,31 +7,38 @@ config_roots = [
     "deployments/*"
 ]
 
-[tools]
-"rust" = {
-    version = "1.98.1",
-    components = [
-        "rust-src",
-        "rust-analyzer",
-        "llvm-tools"
-    ],
-    target = [
-        "wasm32-unknown-unknown",
-        "aarch64-apple-ios",
-        "aarch64-apple-ios-sim",
-        "aarch64-linux-android",
-        "armv7-linux-androideabi",
-        "i686-linux-android",
-        "x86_64-linux-android"
-    ],
-    mr_boxington = true
-}
-"cargo:dioxus-cli" = "0.7.10"
-"cargo:hurl" = "8.0.1"
-"cargo:sqlx-cli" = "0.9.0"
-"pnpm" = "12.5.1"
-"watchexec" = "2.7.3"
-"mr-boxington" = "1.14.0"
+[tools."mr-boxington"]
+version = "1.15.0"
+
+[tools."rust"]
+version = "1.98.1"
+components = [
+    "rust-src",
+    "rust-analyzer",
+    "llvm-tools"
+]
+target = [
+    "wasm32-unknown-unknown",
+    "aarch64-apple-ios",
+    "aarch64-apple-ios-sim",
+    "aarch64-linux-android",
+    "armv7-linux-androideabi",
+    "i686-linux-android",
+    "x86_64-linux-android"
+]
+mr_boxington = true
+
+[tools."cargo:dioxus-cli"]
+version = "0.7.10"
+
+[tools."hurl"]
+version = "8.0.1"
+
+[tools."pnpm"]
+version = "12.5.1"
+
+[tools."watchexec"]
+version = "2.7.3"
 
 [tasks.bootstrap]
 run = [
