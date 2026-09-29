@@ -3,9 +3,12 @@ name = "cli"
 version = "0.1.0"
 edition = "2024"
 
+[[bin]]
+name = "drydrop"
+path = "src/main.rs"
+
 [dependencies]
-drydrop = { path = "../../crates/drydrop", default-features = false, features = ["cli"] }
+drydrop = { path = "../../crates/drydrop", features = ["cli"] }
 
 usage = { workspace = true }
-
 snafu = { workspace = true }

@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-drydrop = { path = "../../crates/drydrop", default-features = false, features = ["tui"] }
+drydrop = { path = "../../crates/drydrop", features = ["tui"] }
 
 ratatui = { workspace = true }
 crossterm = { workspace = true }

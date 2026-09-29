@@ -1,5 +1,2 @@
-[tasks.ios]
-run = "dx serve --ios"
-
-[tasks.android]
-run = "dx serve --android"
+[tasks.dev]
+run = "watchexec -r mbx run"

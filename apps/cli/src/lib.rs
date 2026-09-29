@@ -1,7 +1,10 @@
+use crate::app::Cli;
+use usage::Run;
+
 pub mod app;
+pub mod commands;
 
 pub fn run() -> Result<(), snafu::Whatever> {
-    let args = app::Args::parse();
-    args.process();
+    Cli::parse().command.run();
     Ok(())
 }

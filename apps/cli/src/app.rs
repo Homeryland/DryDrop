@@ -1,9 +1,16 @@
-use usage::Cli;
+use usage::{Cli, Subcommands};
+
+use crate::commands::new::New;
 
 #[derive(Cli)]
-#[usage(bin = "d", version = "0.0.1")]
-pub struct Args {}
+#[usage(bin = "drydrop", version = "0.0.1")]
+pub struct Cli {
+    #[usage(subcommand)]
+    pub command: Commands,
+}
 
-impl Args {
-    pub fn process(&self) {}
+#[derive(Subcommands)]
+#[usage(run)]
+pub enum Commands {
+    New(New),
 }

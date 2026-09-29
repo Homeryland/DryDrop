@@ -1,25 +1,26 @@
 [workspace]
 resolver = "3"
-members = [
-    "crates/*",
-    "apps/*"
-]
+members = ["crates/*", "apps/*"]
 
 [workspace.dependencies]
 # Server
 axum = { version = "0.8.9", features = ["macros"] }
 axum-extra = { version = "0.12.6", features = ["cookie"] }
 
-# Desktop + Mobile + Web
-dioxus = { version = "0.7.10", features = ["fullstack", "router"] }
-icons = { version = "0.18.3", features = ["dioxus"] }
+# Web
+leptos = { version = "0.8.20", features = ["csr"] }
+
+# Desktop
+gpui-kit = { version = "0.7.0", default-features = false, features = ["component", "assets"] }
+
+# Mobile
 
 # TUI
 ratatui = { version = "0.30.2", features = ["all-widgets", "serde"] }
 crossterm = { version = "0.29.0" }
 
 # CLI
-usage = { version = "6.8.0", package = "usage-rs" }
+usage = { version = "6.11.1", package = "usage-rs" }
 
 # Async trait
 async-trait = { version = "0.1.92" }
@@ -42,10 +43,19 @@ jsonwebtoken = { version = "11.1.0", features = ["rust_crypto"] }
 tower-http = { version = "0.7.1", features = ["full"] }
 tower = { version = "0.5.3", features = ["full"] }
 # OpenAPI
-utoipa = { version = "5.5.0", features = ["axum_extras", "chrono", "uuid", "debug"] }
-utoipa-swagger-ui = { version = "9.0.2", features = ["axum", "vendored"] }
+utoipa = { version = "6.0.0", features = [
+  "axum_extras",
+  "chrono",
+  "uuid",
+  "debug",
+] }
+utoipa-swagger-ui = { version = "10.0.1", features = ["axum", "vendored"] }
 # Log
-tracing-subscriber = { version = "0.3.23", features = ["fmt", "json", "env-filter"] }
+tracing-subscriber = { version = "0.3.23", features = [
+  "fmt",
+  "json",
+  "env-filter",
+] }
 tracing-appender = { version = "0.2.5" }
 tracing = { version = "0.1.44" }
 # Mail
@@ -62,6 +72,33 @@ moka = { version = "0.12.16" }
 # Redis connector
 redis = { version = "1.6.0" }
 # SQL
-toasty = { version = "0.10.0", features = ["postgresql", "jiff"] }
+toasty = { version = "0.11.0", features = ["postgresql", "jiff"] }
 # Message Queue
 rabbitmq-stream-client = { version = "0.11.0" }
+
+[profile.dev.package.gpui-pre]
+opt-level = 3
+
+[profile.dev.package.gpui-component]
+opt-level = 3
+
+[profile.dev.package.gpui-kit]
+opt-level = 3
+
+[profile.dev.package.gpui-kit-assets]
+opt-level = 3
+
+[profile.dev.package.gpui-pre-macros]
+opt-level = 3
+
+[profile.dev.package.gpui-pre-platform]
+opt-level = 3
+
+[profile.dev.package.rustybuzz]
+opt-level = 3
+
+[profile.dev.package.taffy]
+opt-level = 3
+
+[profile.dev.package.ttf-parser]
+opt-level = 3
