@@ -20,14 +20,23 @@ target = [
 ]
 mr_boxington = true
 
+[tools."cargo:dioxus-cli"]
+version = "0.7.10"
+
 [tools."hurl"]
 version = "8.0.1"
+
+[tools."pnpm"]
+version = "12.5.1"
 
 [tools."watchexec"]
 version = "2.7.3"
 
 [tasks.bootstrap]
-run = []
+run = [
+  "pnpm install",
+  "pnpm exec tailwindcss -i crates/dioxus-components/tailwind.css -o crates/dioxus-components/assets/tailwind.css",
+]
 
 [tasks.doc]
 run = "mise run //docs:dev"
@@ -66,13 +75,16 @@ run = "mise run //apps/server:prod"
 depends_post = ["infra-prod-down"]
 
 [tasks.web]
-run = "mise run //apps/web:dev"
+run = [{ tasks = ["//crates/dioxus-components:tailwind", "//apps/web:dev"] }]
 
 [tasks.desktop]
-run = "mise run //apps/desktop:dev"
+run = [{ tasks = ["//crates/dioxus-components:tailwind", "//apps/desktop:dev"] }]
 
-[tasks.mobile]
-run = "mise run //apps/mobile:dev"
+[tasks.ios]
+run = [{ tasks = ["//crates/dioxus-components:tailwind", "//apps/mobile:ios"] }]
+
+[tasks.android]
+run = [{ tasks = ["//crates/dioxus-components:tailwind", "//apps/mobile:android"] }]
 
 [tasks.cli]
 run = "mise run //apps/cli:dev"

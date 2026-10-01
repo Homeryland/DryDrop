@@ -1,2 +1,2 @@
 [tasks.dev]
-run = "trunk serve"
+run = "dx serve"

@@ -7,13 +7,9 @@ members = ["crates/*", "apps/*"]
 axum = { version = "0.8.9", features = ["macros"] }
 axum-extra = { version = "0.12.6", features = ["cookie"] }
 
-# Web
-leptos = { version = "0.8.20", features = ["csr"] }
-
-# Desktop
-gpui-kit = { version = "0.7.0", default-features = false, features = ["component", "assets"] }
-
-# Mobile
+# Desktop + Mobile + Web
+dioxus = { version = "0.7.10", features = ["fullstack", "router"] }
+icons = { version = "0.18.3", features = ["dioxus"] }
 
 # TUI
 ratatui = { version = "0.30.2", features = ["all-widgets", "serde"] }
@@ -75,30 +71,3 @@ redis = { version = "1.6.0" }
 toasty = { version = "0.11.0", features = ["postgresql", "jiff"] }
 # Message Queue
 rabbitmq-stream-client = { version = "0.11.0" }
-
-[profile.dev.package.gpui-pre]
-opt-level = 3
-
-[profile.dev.package.gpui-component]
-opt-level = 3
-
-[profile.dev.package.gpui-kit]
-opt-level = 3
-
-[profile.dev.package.gpui-kit-assets]
-opt-level = 3
-
-[profile.dev.package.gpui-pre-macros]
-opt-level = 3
-
-[profile.dev.package.gpui-pre-platform]
-opt-level = 3
-
-[profile.dev.package.rustybuzz]
-opt-level = 3
-
-[profile.dev.package.taffy]
-opt-level = 3
-
-[profile.dev.package.ttf-parser]
-opt-level = 3

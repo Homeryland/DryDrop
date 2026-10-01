@@ -1,5 +1,5 @@
-use leptos::prelude::*;
+use dioxus::prelude::*;
 
 fn main() {
-    leptos::mount::mount_to_body(|| view! { <p>"Hello, world!"</p> })
+    launch(web::App);
 }
