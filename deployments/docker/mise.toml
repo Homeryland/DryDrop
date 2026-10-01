@@ -1,18 +1,24 @@
 [tasks.dev-up]
 run = [
     "rm -rf postgres",
+    "rm -rf redis",
+    "rm -rf rabbitmq",
     "docker compose --env-file ../../config/.env.dev up -d"
 ]
 
 [tasks.test-up]
 run = [
     "rm -rf postgres",
+    "rm -rf redis",
+    "rm -rf rabbitmq",
     "docker compose --env-file ../../config/.env.test up -d"
 ]
 
 [tasks.prod-up]
 run = [
     "rm -rf postgres",
+    "rm -rf redis",
+    "rm -rf rabbitmq",
     "docker compose --env-file ../../config/.env.prod up -d"
 ]
 
