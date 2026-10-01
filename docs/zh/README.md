@@ -33,8 +33,15 @@ DryDrop 不是 Cloudflare 的替代品，不是 Dashboard 的复刻，也不是�
 
 - **Local First** — 项目是事实来源，直接使用标准 Wrangler 配置。
 - **Cloud Native** — 以一致、以项目为中心的界面呈现 Cloudflare Developer Platform。
-- **Native Experience** — 采用 Rust、GPUI 与 gpui-kit 构建，而非 WebView 包装器。
+- **Native Experience** — 桌面、移动端与 Web 由同一套 Rust 代码库（Dioxus）构建，并与 CLI、TUI、服务端共享代码。
 - **安全设计** — OAuth 与限定权限 Token、操作系统凭据存储、环境隔离与 Secret Masking。
+
+## 技术栈
+
+- **桌面 / 移动端 / Web** — Rust + [Dioxus](https://dioxuslabs.com) 0.7（Router、Fullstack），共享同一套组件库。
+- **CLI** — Rust，基于 [usage-rs](https://github.com/ksk001100/usage-rs)。
+- **TUI** — Rust + [Ratatui](https://ratatui.rs) 与 Crossterm。
+- **服务端** — Rust + Axum、Toasty（PostgreSQL）与 OpenAPI。
 
 ## 愿景
 

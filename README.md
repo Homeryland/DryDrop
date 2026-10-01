@@ -33,8 +33,15 @@ The initial focus is deep Cloudflare Workers integration. The broader vision is 
 
 - **Local First** — your project is the source of truth; DryDrop uses standard Wrangler configuration.
 - **Cloud Native** — a consistent, project-oriented view of the Cloudflare Developer Platform.
-- **Native Experience** — built with Rust, GPUI, and gpui-kit; not a WebView wrapper.
+- **Native Experience** — desktop, mobile, and web built with Dioxus from one Rust codebase shared with the CLI, TUI, and server.
 - **Security by Design** — OAuth and scoped tokens, OS credential storage, environment isolation, and secret masking.
+
+## Stack
+
+- **Desktop, Mobile, Web** — Rust + [Dioxus](https://dioxuslabs.com) 0.7 (router, fullstack), sharing a common component crate.
+- **CLI** — Rust, built on [usage-rs](https://github.com/ksk001100/usage-rs).
+- **TUI** — Rust + [Ratatui](https://ratatui.rs) and Crossterm.
+- **Server** — Rust + Axum, Toasty (PostgreSQL), and OpenAPI.
 
 ## Vision
 
