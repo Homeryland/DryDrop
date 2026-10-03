@@ -3,12 +3,8 @@ name = "mobile"
 version = "0.1.0"
 edition = "2024"
 
-[features]
-default = ["mobile"]
-mobile = ["dioxus/mobile", "drydrop/mobile"]
-
 [dependencies]
-drydrop = { path = "../../crates/drydrop", default-features = false }
+drydrop = { path = "../../crates/drydrop", features = ["mobile"] }
 
-dioxus = { workspace = true }
+dioxus = { workspace = true, features = ["mobile"] }
 dioxus-components = { path = "../../crates/dioxus-components" }

@@ -3,12 +3,8 @@ name = "web"
 version = "0.1.0"
 edition = "2024"
 
-[features]
-default = ["web"]
-web = ["dioxus/web", "drydrop/web"]
-
 [dependencies]
-drydrop = { path = "../../crates/drydrop", default-features = false }
+drydrop = { path = "../../crates/drydrop", features = ["web"] }
 
-dioxus = { workspace = true }
+dioxus = { workspace = true, features = ["web"] }
 dioxus-components = { path = "../../crates/dioxus-components" }

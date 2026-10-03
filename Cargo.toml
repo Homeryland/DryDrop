@@ -8,7 +8,7 @@ axum = { version = "0.8.9", features = ["macros"] }
 axum-extra = { version = "0.12.6", features = ["cookie"] }
 
 # Desktop + Mobile + Web
-dioxus = { version = "0.7.10", features = ["fullstack", "router"] }
+dioxus = { version = "0.7.10", features = ["router"] }
 icons = { version = "0.18.3", features = ["dioxus"] }
 
 # TUI
