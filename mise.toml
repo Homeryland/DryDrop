@@ -78,28 +78,41 @@ depends_post = ["infra-prod-down"]
 run = [{ tasks = ["//crates/dioxus-components:tailwind", "//apps/web:dev"] }]
 
 [tasks.desktop]
-run = [{ tasks = ["//crates/dioxus-components:tailwind", "//apps/desktop:dev"] }]
+run = [
+  { tasks = [
+    "//crates/dioxus-components:tailwind",
+    "//apps/desktop:dev",
+  ] },
+]
 
 [tasks.ios]
 run = [{ tasks = ["//crates/dioxus-components:tailwind", "//apps/mobile:ios"] }]
 
 [tasks.android]
-run = [{ tasks = ["//crates/dioxus-components:tailwind", "//apps/mobile:android"] }]
+run = [
+  { tasks = [
+    "//crates/dioxus-components:tailwind",
+    "//apps/mobile:android",
+  ] },
+]
 
 [tasks.cli]
-run = "mise run //apps/cli:dev"
+run = 'mise run //apps/cli:dev'
 
 [tasks.tui]
-run = "mise run //apps/tui:dev"
+run = 'mise run //apps/tui:dev'
 
 [tasks.check]
-run = "mbx check --workspace --all-features"
+run = 'mbx check --workspace --all-features'
 
 [tasks.test]
-run = "mbx test --workspace --all-features"
+run = 'mbx test --workspace --all-features'
 
 [tasks.clippy]
-run = "mbx clippy --workspace --all-features -- -D warnings"
+run = 'mbx clippy --workspace --all-features -- -D warnings'
 
 [tasks.fmt]
-run = "mbx fmt --all -- --check"
+run = 'mbx fmt --all -- --check'
+
+[tasks.push]
+run = 'git -c http.extraHeader="Authorization: Bearer $ARTIFACTS_TOKEN" push -u artifact main'
