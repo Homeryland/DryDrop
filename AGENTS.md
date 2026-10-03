@@ -19,11 +19,11 @@ See `README.md` (English) and `docs/zh/README.md` (中文) for product details.
 ```
 apps/
   cli/       drydrop CLI (usage-rs), binary name "drydrop"
-  desktop/   Dioxus desktop app   (feature: dioxus/desktop)
-  mobile/    Dioxus mobile app    (feature: dioxus/mobile; iOS/Android)
+  desktop/   Dioxus desktop app   (enables dioxus/desktop + drydrop/desktop)
+  mobile/    Dioxus mobile app    (enables dioxus/mobile + drydrop/mobile; iOS/Android)
   server/    Axum + Toasty(PostgreSQL) + utoipa/OpenAPI backend
   tui/       Ratatui + Crossterm TUI
-  web/       Dioxus web app       (feature: dioxus/web)
+  web/       Dioxus web app       (enables dioxus/web + drydrop/web)
 crates/
   dioxus-components/  Shared Dioxus UI components + Tailwind CSS pipeline
   drydrop/            Facade crate; re-exports drydrop-domain behind feature
@@ -76,8 +76,19 @@ Cargo equivalents:
 | `mise run cli` / `mise run tui` | Dev: CLI / TUI |
 | `mise run server-dev` | Bring up infra (docker) then run the server |
 | `mise run infra-test-up` / `infra-test-down` | Start/stop test infra (postgres, redis, rabbitmq) |
+| `mise run push` | Push `main` to the `artifact` remote (needs `ARTIFACTS_TOKEN`) |
 
 The root tasks are what CI mirrors, so keep them working.
+
+## Remotes & publishing
+
+- `origin` — GitHub (`Homeryland/DryDrop`).
+- `artifact` — Cloudflare Artifacts git remote.
+
+`mise run push` pushes the current `main` branch to `artifact`, injecting an
+`Authorization: Bearer $ARTIFACTS_TOKEN` header through `git -c http.extraHeader`
+(so the token is never written to the remote URL). Export `ARTIFACTS_TOKEN`
+first — see `.envrc.example`; the real `.envrc` is gitignored.
 
 ## Tailwind CSS pipeline
 
@@ -150,6 +161,12 @@ docker compose (`deployments/docker/mise.toml`, env files in `config/`).
 8. **No tests exist yet** (as of Oct 2026); `cargo test --workspace
    --all-features` compiles and runs zero tests. When adding integration tests
    that touch Postgres/Redis/RabbitMQ, start infra first.
+9. **Platform features live on the dependency lines.** The UI apps (`web`,
+   `desktop`, `mobile`) do not declare their own Cargo `[features]`; each one
+   enables its platform directly (`dioxus = { workspace = true, features =
+   ["desktop"] }` and `drydrop = { features = ["desktop"] }`). The shared
+   `dioxus` workspace dependency enables `router` only — don't re-add
+   `fullstack` or app-local feature tables.
 
 ## CI
 
