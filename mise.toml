@@ -4,10 +4,10 @@ monorepo_root = true
 config_roots = ["crates/*", "apps/*", "deployments/*"]
 
 [tools."mr-boxington"]
-version = "1.15.0"
+version = "1.21.1"
 
-[tools."rust"]
-version = "1.98.1"
+[tools.rust]
+version = "1.99.0"
 components = ["rust-src", "rust-analyzer", "llvm-tools"]
 target = [
   "wasm32-unknown-unknown",
@@ -21,16 +21,16 @@ target = [
 mr_boxington = true
 
 [tools."cargo:dioxus-cli"]
-version = "0.7.10"
+version = "latest"
 
-[tools."hurl"]
-version = "8.0.1"
+[tools.hurl]
+version = "latest"
 
 [tools."pnpm"]
-version = "12.5.1"
+version = "12.9.0"
 
 [tools."watchexec"]
-version = "2.7.3"
+version = "2.7.4"
 
 [tasks.bootstrap]
 run = [
