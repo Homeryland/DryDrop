@@ -113,6 +113,3 @@ run = 'mbx clippy --workspace --all-features -- -D warnings'
 
 [tasks.fmt]
 run = 'mbx fmt --all -- --check'
-
-[tasks.push]
-run = 'git -c http.extraHeader="Authorization: Bearer $ARTIFACTS_TOKEN" push -u artifact main'
