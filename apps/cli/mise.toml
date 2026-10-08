@@ -1,2 +1,2 @@
 [tasks.dev]
-run = "watchexec -r mbx run"
+run = "watchexec -r mbx build"

@@ -3,6 +3,10 @@ name = "tui"
 version = "0.1.0"
 edition = "2024"
 
+[[bin]]
+name = "drydrop-tui"
+path = "src/main.rs"
+
 [dependencies]
 drydrop = { path = "../../crates/drydrop", features = ["tui"] }
 
