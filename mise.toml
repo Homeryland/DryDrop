@@ -3,21 +3,14 @@ monorepo_root = true
 [monorepo]
 config_roots = ["crates/*", "apps/*", "deployments/*"]
 
+[env]
+_.path = "$PWD/target/debug:$PATH"
+
 [tools."mr-boxington"]
 version = "1.21.1"
 
 [tools.rust]
 version = "1.99.0"
-components = ["rust-src", "rust-analyzer", "llvm-tools"]
-target = [
-  "wasm32-unknown-unknown",
-  "aarch64-apple-ios",
-  "aarch64-apple-ios-sim",
-  "aarch64-linux-android",
-  "armv7-linux-androideabi",
-  "i686-linux-android",
-  "x86_64-linux-android",
-]
 mr_boxington = true
 
 [tools."cargo:dioxus-cli"]
@@ -34,6 +27,7 @@ version = "2.7.4"
 
 [tasks.bootstrap]
 run = [
+  "rustup target add wasm32-unknown-unknown aarch64-apple-ios aarch64-apple-ios-sim aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android",
   "pnpm install",
   "pnpm exec tailwindcss -i crates/dioxus-components/tailwind.css -o crates/dioxus-components/assets/tailwind.css",
 ]

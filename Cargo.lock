@@ -3590,9 +3590,9 @@ dependencies = [
 
 [[package]]
 name = "icons"
-version = "0.18.3"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fcd64e905546df827abb60b227d2c147e16cd197586a26275e0c37d06743b9b5"
+checksum = "9bef9cd5a133bca0976306e662e0fe8f8433f7d5a46c808e701f9391cd4606e7"
 dependencies = [
  "dioxus",
  "strum 0.28.0",

@@ -1,6 +1,6 @@
 # DryDrop
 
-[English](README.md) | [简体中文](docs/zh/README.md)
+English | [简体中文](docs/zh/README.md)
 
 > **A native developer control center for Cloudflare and your infrastructure.**
 

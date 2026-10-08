@@ -1,6 +1,6 @@
 # DryDrop
 
-[English](../../README.md) | [简体中文](README.md)
+[English](../../README.md) | 简体中文
 
 > **面向 Cloudflare 与开发者基础设施的原生控制中心。**
 
