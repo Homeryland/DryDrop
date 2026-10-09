@@ -1,13 +1,14 @@
 use serde::{Deserialize, Serialize};
+use uuid::Uuid;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[cfg_attr(feature = "server", derive(toasty::Model))]
 pub struct Account {
-    #[cfg_attr(feature = "server", key)]
-    pub id: String,
+    #[cfg_attr(feature = "server", key, auto(uuid(v7)))]
+    pub id: Uuid,
     pub account_id: String,
     pub provider_id: String,
-    pub user_id: String,
+    pub user_id: Uuid,
     pub access_token: Option<String>,
     pub refresh_token: Option<String>,
     pub id_token: Option<String>,

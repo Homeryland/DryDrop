@@ -1,11 +1,12 @@
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use uuid::Uuid;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[cfg_attr(feature = "server", derive(toasty::Model))]
 pub struct Organization {
-    #[cfg_attr(feature = "server", key)]
-    pub id: Option<String>,
+    #[cfg_attr(feature = "server", key, auto(uuid(v7)))]
+    pub id: Option<Uuid>,
     pub name: String,
     pub slug: String,
     pub logo: Option<String>,
@@ -16,8 +17,8 @@ pub struct Organization {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[cfg_attr(feature = "server", derive(toasty::Model))]
 pub struct Member {
-    #[cfg_attr(feature = "server", key)]
-    pub organization_id: String,
+    #[cfg_attr(feature = "server", key, auto(uuid(v7)))]
+    pub organization_id: Uuid,
     pub user_id: String,
     pub role: String,
 }

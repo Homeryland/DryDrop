@@ -6,7 +6,7 @@ config_roots = ["crates/*", "apps/*", "deployments/*"]
 [env]
 JAVA_HOME = "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 ANDROID_HOME = "$HOME/Library/Android/sdk"
-NDK_HOME = "$ANDROID_HOME/ndk/28.2.13676358"
+NDK_HOME = "$ANDROID_HOME/ndk/30.0.16248370"
 _.path = [
   "$PWD/target/debug:$PATH",
   "$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools",
@@ -34,6 +34,8 @@ version = "2.7.4"
 [tasks.bootstrap]
 run = [
   "rustup target add wasm32-unknown-unknown aarch64-apple-ios aarch64-apple-ios-sim aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android",
+  "brew install --cask android-commandlinetools",
+  'sdkmanager --sdk_root="$ANDROID_HOME" --install "ndk;30.0.16248370" -y',
   '''
   NDK_VERSION=28.2.13676358
   NDK_DIR="$HOME/Library/Android/sdk/ndk/$NDK_VERSION"

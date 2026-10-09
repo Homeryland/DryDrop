@@ -1,11 +1,12 @@
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use uuid::Uuid;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[cfg_attr(feature = "server", derive(toasty::Model))]
 pub struct User {
-    #[cfg_attr(feature = "server", key)]
-    pub id: String,
+    #[cfg_attr(feature = "server", key, auto(uuid(v7)))]
+    pub id: Uuid,
     pub name: Option<String>,
     #[cfg_attr(feature = "server", unique)]
     pub email: Option<String>,
