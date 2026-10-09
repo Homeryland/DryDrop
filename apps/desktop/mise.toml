@@ -1,8 +1,8 @@
 [tasks.macos-dev]
-run = "RUST_ENV=dev dx serve --macos"
+run = 'RUST_ENV=dev dx serve --macos'
 
 [tasks.windows-dev]
-run = "RUST_ENV=dev dx serve --windows"
+run = 'RUST_ENV=dev dx serve --windows'
 
 [tasks.macos-build]
 run = 'dx bundle --macos --package-types "macos" --package-types "dmg"'

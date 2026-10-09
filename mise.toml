@@ -33,25 +33,12 @@ version = "2.7.4"
 
 [tasks.bootstrap]
 run = [
-  "rustup target add wasm32-unknown-unknown aarch64-apple-ios aarch64-apple-ios-sim aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android",
-  "brew install --cask android-commandlinetools",
+  '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',
+  'brew install --cask android-commandlinetools',
+  'rustup target add wasm32-unknown-unknown aarch64-apple-ios aarch64-apple-ios-sim aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android',
   'sdkmanager --sdk_root="$ANDROID_HOME" --install "ndk;30.0.16248370" -y',
-  '''
-  NDK_VERSION=28.2.13676358
-  NDK_DIR="$HOME/Library/Android/sdk/ndk/$NDK_VERSION"
-  if [ ! -d "$NDK_DIR" ]; then
-    ndk_os=$([ "$(uname -s)" = "Darwin" ] && echo darwin || echo linux)
-    echo "Downloading Android NDK r28c ($ndk_os, ~950MB)..."
-    tmp="$(mktemp -d)"
-    curl -fL "https://dl.google.com/android/repository/android-ndk-r28c-$ndk_os.zip" -o "$tmp/ndk.zip"
-    mkdir -p "$HOME/Library/Android/sdk/ndk"
-    unzip -q "$tmp/ndk.zip" -d "$HOME/Library/Android/sdk/ndk"
-    mv "$HOME/Library/Android/sdk/ndk/android-ndk-r28c" "$NDK_DIR"
-    rm -rf "$tmp"
-  fi
-  ''',
-  "pnpm install",
-  "pnpm exec tailwindcss -i crates/dioxus-components/tailwind.css -o crates/dioxus-components/assets/tailwind.css",
+  'pnpm install',
+  'pnpm exec tailwindcss -i crates/dioxus-components/tailwind.css -o crates/dioxus-components/assets/tailwind.css',
 ]
 
 [tasks.cli-dev]
@@ -61,48 +48,48 @@ run = 'mise run //apps/cli:cli-dev'
 run = 'mise run //apps/tui:tui-dev'
 
 [tasks.infra-dev-up]
-run = "mise run //deployments/docker:infra-dev-up"
+run = 'mise run //deployments/docker:infra-dev-up'
 
 [tasks.infra-dev-down]
-run = "mise run //deployments/docker:infra-dev-down"
+run = 'mise run //deployments/docker:infra-dev-down'
 
 [tasks.server-dev]
-depends = ["infra-dev-up"]
-run = "mise run //apps/server:server-dev"
-depends_post = ["infra-dev-down"]
+depends = ['infra-dev-up']
+run = 'mise run //apps/server:server-dev'
+depends_post = ['infra-dev-down']
 
 [tasks.web-dev]
 run = [
   { tasks = [
-    "//crates/dioxus-components:tailwind",
-    "//apps/web:web-dev",
+    '//crates/dioxus-components:tailwind',
+    '//apps/web:web-dev',
   ] },
 ]
 
 [tasks.macos-dev]
 run = [
   { tasks = [
-    "//crates/dioxus-components:tailwind",
-    "//apps/desktop:macos-dev",
+    '//crates/dioxus-components:tailwind',
+    '//apps/desktop:macos-dev',
   ] },
 ]
 
 [tasks.windows-dev]
 run = [
   { tasks = [
-    "//crates/dioxus-components:tailwind",
-    "//apps/desktop:windows-dev",
+    '//crates/dioxus-components:tailwind',
+    '//apps/desktop:windows-dev',
   ] },
 ]
 
 [tasks.ios-dev]
-run = [{ tasks = ["//crates/dioxus-components:tailwind", "//apps/mobile:ios"] }]
+run = [{ tasks = ['//crates/dioxus-components:tailwind', '//apps/mobile:ios'] }]
 
 [tasks.android-dev]
 run = [
   { tasks = [
-    "//crates/dioxus-components:tailwind",
-    "//apps/mobile:android",
+    '//crates/dioxus-components:tailwind',
+    '//apps/mobile:android',
   ] },
 ]
 

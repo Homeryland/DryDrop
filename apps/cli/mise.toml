@@ -1,5 +1,5 @@
 [tasks.cli-dev]
-run = "watchexec -r mbx build"
+run = 'watchexec -r mbx build'
 
 [tasks.cli-build]
 run = 'mbx build --release'

@@ -1,5 +1,5 @@
 [tasks.server-dev]
-run = "watchexec -r mbx run"
+run = 'watchexec -r mbx run'
 
 [tasks.server-build]
 run = 'mbx build --release'

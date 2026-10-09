@@ -1,5 +1,5 @@
 [tasks.tui-dev]
-run = "watchexec -r mbx build"
+run = 'watchexec -r mbx build'
 
 [tasks.tui-build]
 run = 'mbx build --release'
