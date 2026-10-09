@@ -1,6 +1,8 @@
 # DryDrop
 
-English | [简体中文](docs/zh/README.md)
+<p align="center">
+  English | <a href="docs/zh/README.md">简体中文</a>
+</p>
 
 <p align="center">
   <strong>Let your code run anywhere like water.</strong>

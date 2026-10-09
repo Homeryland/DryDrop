@@ -1,6 +1,8 @@
 # DryDrop
 
-[English](../../README.md) | 简体中文
+<p align="center">
+  <a href="../../README.md">English</a> | 简体中文
+</p>
 
 <p align="center">
   <strong>让你的代码像水一样，随处流动运行。</strong>
