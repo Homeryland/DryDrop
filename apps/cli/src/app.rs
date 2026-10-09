@@ -1,4 +1,4 @@
-use usage::{Cli, Subcommands};
+use usage_rs::{Cli, Subcommands};
 
 use crate::commands::new::New;
 

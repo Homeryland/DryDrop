@@ -1,5 +1,5 @@
 use crate::app::Cli;
-use usage::Run;
+use usage_rs::Run;
 
 pub mod app;
 pub mod commands;

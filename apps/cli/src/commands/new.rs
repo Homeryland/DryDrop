@@ -1,4 +1,4 @@
-use usage::{Args, Run};
+use usage_rs::{Args, Run};
 
 #[derive(Args)]
 pub struct New {

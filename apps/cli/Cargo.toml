@@ -10,5 +10,5 @@ path = "src/main.rs"
 [dependencies]
 drydrop = { path = "../../crates/drydrop", features = ["cli"] }
 
-usage = { workspace = true }
+usage_rs = { workspace = true }
 snafu = { workspace = true }

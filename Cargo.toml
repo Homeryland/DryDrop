@@ -16,7 +16,7 @@ ratatui = { version = "0.30.2", features = ["all-widgets", "serde"] }
 crossterm = { version = "0.29.0" }
 
 # CLI
-usage = { version = "7.0.0", package = "usage-rs" }
+usage_rs = { version = "7.0.0", package = "usage-rs" }
 
 # Async trait
 async-trait = { version = "0.1.92" }
