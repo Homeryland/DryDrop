@@ -2,52 +2,103 @@
 
 English | [简体中文](docs/zh/README.md)
 
-> **A native developer control center for Cloudflare and your infrastructure.**
+<p align="center">
+  <strong>Let your code run anywhere like water.</strong>
+</p>
 
-DryDrop is a developer infrastructure product by **Homeryland**. It brings local projects, the Cloudflare Developer Platform, development environments, deployments, resource management, logs, and observability into one modern, native workspace.
+<p align="center">
+  A self-hosted deployment platform for running applications across your own hardware, cloud servers, and serverless environments.
+</p>
 
-Available for **CLI**, **TUI**, **Mobile**, **Desktop**, and **Web**.
+## What is DryDrop?
 
-For more information, visit [drydrop.homeryland.org](https://drydrop.homeryland.org).
+DryDrop is an open-source project exploring a simpler, more flexible way to build, deploy, and operate applications across different environments.
 
-## Positioning
+Your application should not be tied to a particular cloud provider, a single machine, or a specific deployment workflow.
 
-DryDrop is not a Cloudflare replacement, a Dashboard clone, or another self-hosted PaaS. It is a **native control center for the Cloudflare Developer Platform**, built on the official ecosystem:
+With DryDrop, the goal is to make deployment feel less like infrastructure management and more like telling your code where to run.
 
-- **Wrangler** handles project workflows such as local development, builds, and deployment.
-- **Cloudflare APIs** provide account, resource, domain, management, and observability capabilities.
-- **workerd and Miniflare** provide the Worker runtime and local simulation ecosystem.
-
-The initial focus is deep Cloudflare Workers integration. The broader vision is a unified control plane for cloud services and developer-owned infrastructure.
-
-## What You Can Do
-
-- Discover and organize local Worker projects
-- Run Workers locally and inspect local or remote bindings
-- Deploy across environments with version history and safe rollback
-- Manage domains, routes, variables, and secrets
-- Work with D1, KV, R2, Queues, Durable Objects, Workflows, Workers AI, and Vectorize
-- Explore logs, traces, metrics, and errors per project and deployment
-
-## Principles
-
-- **Local First** — your project is the source of truth; DryDrop uses standard Wrangler configuration.
-- **Cloud Native** — a consistent, project-oriented view of the Cloudflare Developer Platform.
-- **Native Experience** — desktop, mobile, and web built with Dioxus from one Rust codebase shared with the CLI, TUI, and server.
-- **Security by Design** — OAuth and scoped tokens, OS credential storage, environment isolation, and secret masking.
-
-## Stack
-
-- **Desktop, Mobile, Web** — Rust + [Dioxus](https://dioxuslabs.com) 0.7 (router, fullstack), sharing a common component crate.
-- **CLI** — Rust, built on [usage-rs](https://github.com/ksk001100/usage-rs).
-- **TUI** — Rust + [Ratatui](https://ratatui.rs) and Crossterm.
-- **Server** — Rust + Axum, Toasty (PostgreSQL), and OpenAPI.
+Whether you want to turn an old computer into a personal server, deploy an application to a cloud VPS, or run compatible workloads in a serverless environment, DryDrop aims to provide a unified experience.
 
 ## Vision
 
-> **Your infrastructure, in one place.**
+Infrastructure should adapt to applications, not the other way around.
 
-> **Write code anywhere. Deploy anywhere. Observe everything.**
+Today, deploying an application across different environments often means learning different tools, maintaining separate configurations, and building provider-specific workflows. Self-hosting can require considerable operational knowledge, while moving between hosting environments can introduce additional complexity.
+
+DryDrop explores a different approach:
+
+- Run anywhere. Choose the environment that fits your application, hardware, and budget.
+- Self-host by default. Make better use of hardware you already own and retain control over your applications.
+- Automate everything. Turn repetitive deployment and maintenance tasks into reusable workflows.
+- Stay flexible. Keep deployment choices open instead of locking your entire workflow to one provider.
+- Observe and operate. Bring deployment status, application health, and operational workflows into one place.
+
+The long-term goal is to make application deployment accessible without hiding the infrastructure that developers need to understand and control.
+
+## Technology
+
+DryDrop is built around a Rust-first development philosophy.
+
+The broader project direction includes:
+
+- Rust for systems components and deployment tooling.
+- WebAssembly as a potential portability target for compatible applications.
+- Declarative configuration for describing deployment targets and workflows.
+- Composable components to keep infrastructure integrations and execution backends extensible.
+
+Specific implementation choices will follow the needs of the MVP rather than requiring every planned component from the beginning.
+
+## Get Started
+
+> DryDrop is in early development — APIs and workflows may change.
+
+### Prerequisites
+
+- [mise](https://mise.jdx.dev) — manages the pinned toolchain (Rust, `dx`, pnpm, ...).
+- Docker — required by the server component (PostgreSQL, Redis, RabbitMQ).
+
+### Run from source
+
+```bash
+git clone https://github.com/Homeryland/DryDrop.git
+cd DryDrop
+mise install
+mise bootstrap
+```
+
+Then pick the app you want to run:
+
+```bash
+mise run web-dev       # Web app
+mise run macos-dev     # Desktop (macOS; use windows-dev on Windows)
+mise run cli-dev       # CLI
+mise run tui-dev       # TUI
+mise run server-dev    # Server (starts infra via Docker automatically)
+```
+
+For per-platform build commands and artifact locations, see
+[docs/en/build.md](docs/en/build.md). For the full development guide, see
+[docs/en/develop.md](docs/en/develop.md).
+
+## Contributing
+
+Contributions are welcome! DryDrop is open source under the MIT License.
+
+- **Issues** — bug reports and feature ideas are equally appreciated.
+- **Pull requests** — keep them focused; for larger changes, open an issue
+  first to discuss the approach.
+- **Before submitting** — make sure these pass (CI runs the same checks):
+
+  ```bash
+  mise run fmt
+  mise run check
+  mise run clippy
+  mise run test
+  ```
+
+See [docs/en/develop.md](docs/en/develop.md) for environment setup, project
+conventions, and architecture notes.
 
 ## License
 

@@ -76,19 +76,29 @@ Cargo equivalents:
 | `mise run cli` / `mise run tui` | Dev: CLI / TUI |
 | `mise run server-dev` | Bring up infra (docker) then run the server |
 | `mise run infra-test-up` / `infra-test-down` | Start/stop test infra (postgres, redis, rabbitmq) |
-| `mise run push` | Push `main` to the `artifact` remote (needs `ARTIFACTS_TOKEN`) |
 
 The root tasks are what CI mirrors, so keep them working.
 
-## Remotes & publishing
+## Windows builds
+
+`mise run windows-build` (see `apps/desktop/mise.toml`) must be run on a
+**Windows** machine — it is a native build (`dx bundle --desktop
+--package-types nsis --package-types msi`), where the MSVC toolchain, WiX
+(msi) and PDB-based asset hashing all work out of the box. Developers install
+the dx CLI locally and run it there.
+
+Notes:
+
+- Running it from macOS/Linux fails: `--desktop` resolves to the host bundle
+  format, which rejects nsis/msi package types.
+- The old macOS cross-compile setup (mingw-w64 + a linker wrapper translating
+  dx's injected MSVC args, `--skip-assets`) was removed; see git history if
+  cross-compiling from macOS is ever needed again.
+
+## Remotes
 
 - `origin` — GitHub (`Homeryland/DryDrop`).
-- `artifact` — Cloudflare Artifacts git remote.
-
-`mise run push` pushes the current `main` branch to `artifact`, injecting an
-`Authorization: Bearer $ARTIFACTS_TOKEN` header through `git -c http.extraHeader`
-(so the token is never written to the remote URL). Export `ARTIFACTS_TOKEN`
-first — see `.envrc.example`; the real `.envrc` is gitignored.
+- `codeberg` — Codeberg (`Homeryland/DryDrop`).
 
 ## Tailwind CSS pipeline
 
