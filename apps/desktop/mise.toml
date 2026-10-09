@@ -1,8 +1,11 @@
-[tasks.dev]
-run = "RUST_ENV=dev dx serve"
+[tasks.macos-dev]
+run = "RUST_ENV=dev dx serve --macos"
 
-[tasks.test]
-run = "RUST_ENV=test dx serve"
+[tasks.windows-dev]
+run = "RUST_ENV=dev dx serve --windows"
 
-[tasks.prod]
-run = "RUST_ENV=prod dx serve"
+[tasks.macos-build]
+run = 'dx bundle --macos --package-types "macos" --package-types "dmg"'
+
+[tasks.windows-build]
+run = 'dx bundle --desktop --package-types "nsis" --package-types "msi"'

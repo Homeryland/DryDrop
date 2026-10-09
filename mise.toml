@@ -4,7 +4,13 @@ monorepo_root = true
 config_roots = ["crates/*", "apps/*", "deployments/*"]
 
 [env]
-_.path = "$PWD/target/debug:$PATH"
+JAVA_HOME = "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+ANDROID_HOME = "$HOME/Library/Android/sdk"
+NDK_HOME = "$ANDROID_HOME/ndk/28.2.13676358"
+_.path = [
+  "$PWD/target/debug:$PATH",
+  "$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools",
+]
 
 [tools."mr-boxington"]
 version = "1.21.1"
@@ -28,61 +34,69 @@ version = "2.7.4"
 [tasks.bootstrap]
 run = [
   "rustup target add wasm32-unknown-unknown aarch64-apple-ios aarch64-apple-ios-sim aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android",
+  '''
+  NDK_VERSION=28.2.13676358
+  NDK_DIR="$HOME/Library/Android/sdk/ndk/$NDK_VERSION"
+  if [ ! -d "$NDK_DIR" ]; then
+    ndk_os=$([ "$(uname -s)" = "Darwin" ] && echo darwin || echo linux)
+    echo "Downloading Android NDK r28c ($ndk_os, ~950MB)..."
+    tmp="$(mktemp -d)"
+    curl -fL "https://dl.google.com/android/repository/android-ndk-r28c-$ndk_os.zip" -o "$tmp/ndk.zip"
+    mkdir -p "$HOME/Library/Android/sdk/ndk"
+    unzip -q "$tmp/ndk.zip" -d "$HOME/Library/Android/sdk/ndk"
+    mv "$HOME/Library/Android/sdk/ndk/android-ndk-r28c" "$NDK_DIR"
+    rm -rf "$tmp"
+  fi
+  ''',
   "pnpm install",
   "pnpm exec tailwindcss -i crates/dioxus-components/tailwind.css -o crates/dioxus-components/assets/tailwind.css",
 ]
 
-[tasks.doc]
-run = "mise run //docs:dev"
+[tasks.cli-dev]
+run = 'mise run //apps/cli:cli-dev'
+
+[tasks.tui-dev]
+run = 'mise run //apps/tui:tui-dev'
 
 [tasks.infra-dev-up]
-run = "mise run //deployments/docker:dev-up"
-
-[tasks.infra-prod-up]
-run = "mise run //deployments/docker:prod-up"
-
-[tasks.infra-test-up]
-run = "mise run //deployments/docker:test-up"
+run = "mise run //deployments/docker:infra-dev-up"
 
 [tasks.infra-dev-down]
-run = "mise run //deployments/docker:dev-down"
-
-[tasks.infra-test-down]
-run = "mise run //deployments/docker:test-down"
-
-[tasks.infra-prod-down]
-run = "mise run //deployments/docker:prod-down"
+run = "mise run //deployments/docker:infra-dev-down"
 
 [tasks.server-dev]
 depends = ["infra-dev-up"]
-run = "mise run //apps/server:dev"
+run = "mise run //apps/server:server-dev"
 depends_post = ["infra-dev-down"]
 
-[tasks.server-test]
-depends = ["infra-test-up"]
-run = "mise run //apps/server:test"
-depends_post = ["infra-test-down"]
-
-[tasks.server-prod]
-depends = ["infra-prod-up"]
-run = "mise run //apps/server:prod"
-depends_post = ["infra-prod-down"]
-
-[tasks.web]
-run = [{ tasks = ["//crates/dioxus-components:tailwind", "//apps/web:dev"] }]
-
-[tasks.desktop]
+[tasks.web-dev]
 run = [
   { tasks = [
     "//crates/dioxus-components:tailwind",
-    "//apps/desktop:dev",
+    "//apps/web:web-dev",
   ] },
 ]
 
-[tasks.ios]
+[tasks.macos-dev]
+run = [
+  { tasks = [
+    "//crates/dioxus-components:tailwind",
+    "//apps/desktop:macos-dev",
+  ] },
+]
+
+[tasks.windows-dev]
+run = [
+  { tasks = [
+    "//crates/dioxus-components:tailwind",
+    "//apps/desktop:windows-dev",
+  ] },
+]
+
+[tasks.ios-dev]
 run = [{ tasks = ["//crates/dioxus-components:tailwind", "//apps/mobile:ios"] }]
 
-[tasks.android]
+[tasks.android-dev]
 run = [
   { tasks = [
     "//crates/dioxus-components:tailwind",
@@ -90,11 +104,29 @@ run = [
   ] },
 ]
 
-[tasks.cli]
-run = 'mise run //apps/cli:dev'
+[tasks.cli-build]
+run = 'mise run //apps/cli:cli-build'
 
-[tasks.tui]
-run = 'mise run //apps/tui:dev'
+[tasks.tui-build]
+run = 'mise run //apps/tui:tui-build'
+
+[tasks.server-build]
+run = 'mise run //apps/server:server-build'
+
+[tasks.web-build]
+run = 'mise run //apps/web:web-build'
+
+[tasks.macos-build]
+run = 'mise run //apps/desktop:macos-build'
+
+[tasks.windows-build]
+run = 'mise run //apps/desktop:windows-build'
+
+[tasks.ios-build]
+run = 'mise run //apps/mobile:ios-build'
+
+[tasks.android-build]
+run = 'mise run //apps/mobile:android-build'
 
 [tasks.check]
 run = 'mbx check --workspace --all-features'

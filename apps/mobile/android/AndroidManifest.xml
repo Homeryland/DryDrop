@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Custom AndroidManifest for Android builds: dx uses this file verbatim
+         instead of its generated template, which is how the launcher label
+         becomes "DryDrop Mobile" (dx hardcodes app_name from the crate name,
+         so [application] name does NOT affect Android).
+         Path is resolved relative to the directory `dx` runs from (apps/mobile).
+         Note: with a custom manifest, dx's [permissions]/[deep_links]/
+         [android.raw.manifest] merging is bypassed — add those entries here. -->
+    <!-- Default permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application android:hasCode="true" android:icon="@mipmap/ic_launcher"
+        android:extractNativeLibs="true"
+        android:allowNativeHeapPointerTagging="false"
+        android:label="DryDrop Mobile"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:networkSecurityConfig="@xml/network_security_config">
+        <activity android:configChanges="orientation|screenLayout|screenSize|keyboardHidden" android:exported="true"
+            android:label="DryDrop Mobile" android:name="dev.dioxus.main.MainActivity">
+            <meta-data android:name="android.app.lib_name" android:value="main" />
+            <meta-data android:name="android.app.func_name" android:value="ANativeActivity_onCreate" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

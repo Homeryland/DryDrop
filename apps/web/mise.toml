@@ -1,2 +1,5 @@
-[tasks.dev]
+[tasks.web-dev]
 run = "dx serve"
+
+[tasks.web-build]
+run = 'dx bundle --web'

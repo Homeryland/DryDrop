@@ -1,5 +1,21 @@
-[tasks.ios]
-run = "dx serve --ios"
+[tasks.ios-dev]
+run = 'dx serve --ios'
 
-[tasks.android]
-run = "dx serve --android"
+[tasks.ios-build]
+run = '''
+dx bundle --ios --package-types "ios" &&
+cd ../../target/dx/drydrop-mobile/debug/ios &&
+rm -rf "DryDrop Mobile.app" &&
+mv DrydropMobile.app "DryDrop Mobile.app"
+'''
+
+[tasks.android-dev]
+run = 'dx serve --android'
+
+[tasks.android-build]
+run = '''
+dx bundle --android --package-types "apk" &&
+cd ../../target/dx/drydrop-mobile/debug/android/app/app/build/outputs/apk/debug &&
+rm -f "DryDrop Mobile.apk" &&
+mv app-debug.apk "DryDrop Mobile.apk"
+'''

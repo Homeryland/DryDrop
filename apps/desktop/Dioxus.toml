@@ -1,0 +1,14 @@
+[application]
+name = "DryDrop Desktop"
+
+[bundle]
+identifier = "com.homeryland.drydrop.desktop"
+publisher = "Homeryland"
+copyright = "Copyright 2026 Homeryland"
+category = "DeveloperTool"
+
+[bundle.macos]
+bundle_name = "DryDrop Desktop"
+
+[bundle.windows]
+bundle_name = "DryDrop Desktop"

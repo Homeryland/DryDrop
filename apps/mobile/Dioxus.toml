@@ -1,0 +1,19 @@
+[application]
+name = "DryDrop Mobile"
+# Custom AndroidManifest.xml for Android builds: dx uses this file verbatim
+# instead of its generated template, which is how the launcher label becomes
+# "DryDrop Mobile" (dx hardcodes app_name from the crate name — [application]
+# name above does NOT affect Android/iOS; it is only consumed by the Windows
+# bundler).
+# Paths are resolved relative to the directory `dx` runs from (apps/mobile).
+# Note: with a custom plist/manifest, dx's [permissions]/[deep_links]/[ios.plist]
+# merging is bypassed — add those keys to ios/Info.plist or
+# android/AndroidManifest.xml directly.
+ios_info_plist = "ios/Info.plist"
+android_manifest = "android/AndroidManifest.xml"
+
+[bundle]
+identifier = "com.homeryland.drydrop.mobile"
+publisher = "Homeryland"
+copyright = "Copyright 2026 Homeryland"
+category = "DeveloperTool"

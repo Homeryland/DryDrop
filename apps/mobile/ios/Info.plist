@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<!--
+  Custom iOS Info.plist for DryDrop Mobile.
+
+  Referenced from Dioxus.toml as `[application] ios_info_plist`. When set, dx
+  uses this file verbatim INSTEAD of generating one from its ios.plist.hbs
+  template. Consequences:
+
+  - CFBundleDisplayName / CFBundleName below give the app its on-device name
+    ("DryDrop Mobile"); the on-disk bundle directory is still named by dx from
+    the cargo bin name (`drydrop-mobile` -> DrydropMobile.app) and cannot be
+    changed via config in dx 0.7.x.
+  - [application] name does NOT affect the iOS display name (it is only read
+    by the Windows bundler), which is why this file exists.
+  - Entries dx would normally merge from Dioxus.toml ([permissions],
+    [deep_links], [background], [ios.plist], [ios.raw.info_plist]) are
+    bypassed. If you add permission strings (camera, location, ...) later,
+    add the corresponding NSxxxUsageDescription keys here by hand.
+  - Keep CFBundleExecutable in sync with the [[bin]] name in Cargo.toml,
+    CFBundleIdentifier with [bundle] identifier in Dioxus.toml, and the
+    version keys with the crate version (they are NOT auto-filled anymore).
+-->
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>DryDrop Mobile</string>
+
+	<key>CFBundleExecutable</key>
+	<string>drydrop-mobile</string>
+
+	<key>CFBundleIdentifier</key>
+	<string>com.homeryland.drydrop.mobile</string>
+
+	<key>CFBundleName</key>
+	<string>DryDrop Mobile</string>
+
+	<key>CFBundleVersion</key>
+	<string>0.1.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.1.0</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en_US</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UISupportsTrueScreenSizeOnMac</key>
+	<true/>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+		<string>metal</string>
+	</array>
+	<key>UIDeviceFamily</key>
+	<array>
+		<integer>1</integer>
+		<integer>2</integer>
+	</array>
+	<key>CFBundleSupportedPlatforms</key>
+	<array>
+		<string>iPhoneOS</string>
+		<string>iPadOS</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+</dict>
+</plist>
