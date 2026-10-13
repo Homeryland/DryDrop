@@ -1,12 +1,9 @@
+use drydrop::config::Config;
 use snafu::ResultExt;
 use tracing::info;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
-use crate::{
-    application::state::AppState,
-    infrastructure::config::Config,
-    presentation::http::v1::{log::init_logger, routes::create_routers},
-};
+use crate::presentation::http::v1::{log::init_logger, routes::create_routers, state::AppState};
 
 pub mod application;
 pub mod infrastructure;

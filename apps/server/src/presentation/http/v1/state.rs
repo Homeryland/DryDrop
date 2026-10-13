@@ -1,9 +1,7 @@
+use drydrop::{config::Config, infra::PgClient};
 use snafu::ResultExt;
 
-use crate::{
-    application::error::{AppResult, DBSnafu},
-    infrastructure::config::Config,
-};
+use crate::application::error::{AppResult, DBSnafu};
 
 #[derive(Clone)]
 pub struct AppState {
@@ -11,7 +9,7 @@ pub struct AppState {
     pub web_base_url: String,
     pub server_base_url: String,
     pub jwt_secret: String,
-    pub db: toasty::Db,
+    pub db: PgClient,
 }
 
 impl AppState {
@@ -19,20 +17,8 @@ impl AppState {
         let mode = config.mode;
         let web_base_url = format!("http://{}:{}", config.web.host, config.web.port);
         let server_base_url = format!("http://{}:{}", config.server.host, config.server.port);
-        let db_url = format!(
-            "postgres://{}:{}@{}:{}/{}",
-            config.postgres.user,
-            config.postgres.password,
-            config.postgres.host,
-            config.postgres.port,
-            config.postgres.db
-        );
-        let db = toasty::Db::builder()
-            .connect(&db_url)
-            .await
-            .context(DBSnafu)?;
-        db.push_schema().await.context(DBSnafu)?;
         let jwt_secret = config.jwt_secret;
+        let db = PgClient::new(&config.postgres).await.context(DBSnafu)?;
         Ok(Self {
             mode,
             web_base_url,

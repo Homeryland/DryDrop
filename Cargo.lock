@@ -2390,8 +2390,21 @@ checksum = "d8b14ccef22fc6f5a8f4d7d768562a182c04ce9a3b3157b91390b52ddfdf1a76"
 name = "drydrop"
 version = "0.1.0"
 dependencies = [
+ "drydrop-config",
  "drydrop-domain",
+ "drydrop-infra",
  "toasty",
+]
+
+[[package]]
+name = "drydrop-config"
+version = "0.1.0"
+dependencies = [
+ "config",
+ "dotenvy",
+ "drydrop-error",
+ "serde",
+ "snafu",
 ]
 
 [[package]]
@@ -2406,8 +2419,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "drydrop-error"
+version = "0.1.0"
+dependencies = [
+ "snafu",
+ "toasty",
+]
+
+[[package]]
 name = "drydrop-infra"
 version = "0.1.0"
+dependencies = [
+ "drydrop-config",
+ "drydrop-domain",
+ "toasty",
+]
 
 [[package]]
 name = "dtoa"

@@ -1,0 +1,11 @@
+[package]
+name = "drydrop-error"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+server = ["dep:toasty"]
+
+[dependencies]
+snafu = { workspace = true }
+toasty = { workspace = true, optional = true }

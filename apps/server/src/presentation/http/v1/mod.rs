@@ -6,3 +6,4 @@ pub mod middlewares;
 pub mod openapi;
 pub mod response;
 pub mod routes;
+pub mod state;

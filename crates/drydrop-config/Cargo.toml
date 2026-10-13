@@ -1,0 +1,15 @@
+[package]
+name = "drydrop-config"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+mobile = []
+server = ["drydrop-error/server"]
+
+[dependencies]
+drydrop-error = { path = "../drydrop-error", optional = true }
+config = { workspace = true }
+dotenvy = { workspace = true }
+serde = { workspace = true }
+snafu = { workspace = true }

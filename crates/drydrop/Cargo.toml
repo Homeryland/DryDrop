@@ -8,6 +8,8 @@ server = [
     "dep:toasty",
     "dep:drydrop-domain",
     "drydrop-domain/server",
+    "drydrop-config/server",
+    "drydrop-infra/postgres"
 ]
 desktop = ["dep:drydrop-domain"]
 mobile = ["dep:drydrop-domain"]
@@ -17,4 +19,6 @@ cli = ["dep:drydrop-domain"]
 
 [dependencies]
 drydrop-domain = { path = "../drydrop-domain", optional = true }
+drydrop-config = { path = "../drydrop-config", optional = true }
+drydrop-infra = { path = "../drydrop-infra", optional = true }
 toasty = { workspace = true, optional = true }

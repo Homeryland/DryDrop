@@ -6,7 +6,7 @@ use uuid::Uuid;
 #[cfg_attr(feature = "server", derive(toasty::Model))]
 pub struct Organization {
     #[cfg_attr(feature = "server", key, auto(uuid(v7)))]
-    pub id: Option<Uuid>,
+    pub id: Uuid,
     pub name: String,
     pub slug: String,
     pub logo: Option<String>,
@@ -17,7 +17,7 @@ pub struct Organization {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[cfg_attr(feature = "server", derive(toasty::Model))]
 pub struct Member {
-    #[cfg_attr(feature = "server", key, auto(uuid(v7)))]
+    #[cfg_attr(feature = "server", key)]
     pub organization_id: Uuid,
     pub user_id: String,
     pub role: String,

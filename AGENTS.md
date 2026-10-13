@@ -10,14 +10,14 @@ as CLI, TUI, Desktop, Mobile, and Web apps, all sharing one Rust codebase.
 See `README.md` (English) and `docs/zh/README.md` (中文) for product details.
 
 - License: MIT
-- Website: https://drydrop.homeryland.org
+- Website: [https://drydrop.homeryland.org](https://drydrop.homeryland.org)
 - Stack: Rust 2024 edition, Dioxus 0.7 (desktop/mobile/web), Axum + Toasty
   (server), Ratatui (TUI), usage-rs (CLI), Tailwind CSS v4 (shared UI).
 
 ## Repository layout
 
-```
-apps/
+```text
+pp/
   cli/       drydrop CLI (usage-rs), binary name "drydrop"
   desktop/   Dioxus desktop app   (enables dioxus/desktop + drydrop/desktop)
   mobile/    Dioxus mobile app    (enables dioxus/mobile + drydrop/mobile; iOS/Android)

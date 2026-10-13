@@ -3,4 +3,10 @@ name = "drydrop-infra"
 version = "0.1.0"
 edition = "2024"
 
+[features]
+postgres = ["dep:toasty", "drydrop-domain/server", "drydrop-config/server"]
+
 [dependencies]
+drydrop-domain = { path = "../drydrop-domain", optional = true }
+drydrop-config = { path = "../drydrop-config", optional = true }
+toasty = { workspace = true, optional = true }

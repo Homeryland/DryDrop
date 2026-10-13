@@ -1,4 +1,4 @@
-[tasks.dev-up]
+[tasks.infra-dev-up]
 run = [
   'rm -rf postgres',
   'rm -rf redis',
@@ -6,5 +6,5 @@ run = [
   'docker compose --env-file ../../config/.env.dev up -d',
 ]
 
-[tasks.dev-down]
+[tasks.infra-dev-down]
 run = 'docker compose --env-file ../../config/.env.dev down'

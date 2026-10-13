@@ -1,12 +1,10 @@
 use axum::Router;
 use tower_http::trace::TraceLayer;
 
-use crate::{
-    application::state::AppState,
-    presentation::http::v1::{
-        middlewares::cors::cors,
-        routes::{docs::openapi_router, health::health_router},
-    },
+use crate::presentation::http::v1::{
+    middlewares::cors::cors,
+    routes::{docs::openapi_router, health::health_router},
+    state::AppState,
 };
 
 pub mod docs;

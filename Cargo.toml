@@ -54,6 +54,8 @@ tracing-subscriber = { version = "0.3.23", features = [
 ] }
 tracing-appender = { version = "0.2.5" }
 tracing = { version = "0.1.44" }
+# Opentelemetry
+axum-tracing-opentelemetry = { version = "0.42.1" }
 # Mail
 check-if-email-exists = { version = "0.11.7" }
 resend-rs = { version = "0.34.0" }
