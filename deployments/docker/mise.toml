@@ -1,10 +1,9 @@
-[tasks.infra-dev-up]
+[tasks."infra:up"]
 run = [
   'rm -rf postgres',
   'rm -rf redis',
-  'rm -rf rabbitmq',
   'docker compose --env-file ../../config/.env.dev up -d',
 ]
 
-[tasks.infra-dev-down]
+[tasks."infra:down"]
 run = 'docker compose --env-file ../../config/.env.dev down'

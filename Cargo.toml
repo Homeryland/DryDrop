@@ -58,8 +58,12 @@ tracing = { version = "0.1.44" }
 axum-tracing-opentelemetry = { version = "0.42.1" }
 # Mail
 check-if-email-exists = { version = "0.11.7" }
-resend-rs = { version = "0.34.0" }
-lettre = { version = "0.11.23" }
+resend-rs = { version = "0.35.0" }
+lettre = { version = "0.11.23", features = [
+  "sendmail-transport",
+  "tokio1",
+  "tokio1-native-tls",
+] }
 # Error handling for lib
 thiserror = { version = "2.0.20" }
 # Error handling for app
@@ -73,6 +77,6 @@ redis = { version = "1.6.0" }
 # SQL
 toasty = { version = "0.11.0", features = ["postgresql", "jiff"] }
 # Message Queue
-rabbitmq-stream-client = { version = "0.11.0" }
+iggy = { version = "0.11.0" }
 # Auth
 oauth2 = { version = "5.0.0" }

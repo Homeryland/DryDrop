@@ -1,22 +1,8 @@
-monorepo_root = true
-
-[monorepo]
-config_roots = ["crates/*", "apps/*", "deployments/*"]
-
-[env]
-JAVA_HOME = "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
-ANDROID_HOME = "$HOME/Library/Android/sdk"
-NDK_HOME = "$ANDROID_HOME/ndk/30.0.16248370"
-_.path = [
-  "$PWD/target/debug:$PATH",
-  "$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools",
-]
-
 [tools."mr-boxington"]
-version = "1.21.1"
+version = "1.27.0"
 
 [tools.rust]
-version = "1.99.0"
+version = "nightly"
 mr_boxington = true
 
 [tools."cargo:dioxus-cli"]
@@ -26,105 +12,7 @@ version = "latest"
 version = "latest"
 
 [tools."pnpm"]
-version = "12.9.0"
+version = "12.15.0"
 
 [tools."watchexec"]
-version = "2.7.4"
-
-[tasks.bootstrap]
-run = [
-  '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',
-  'brew install --cask android-commandlinetools',
-  'rustup target add wasm32-unknown-unknown aarch64-apple-ios aarch64-apple-ios-sim aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android',
-  'sdkmanager --sdk_root="$ANDROID_HOME" --install "ndk;30.0.16248370" -y',
-  'pnpm install',
-  'pnpm exec tailwindcss -i crates/dioxus-components/tailwind.css -o crates/dioxus-components/assets/tailwind.css',
-]
-
-[tasks.cli-dev]
-run = 'mise run //apps/cli:cli-dev'
-
-[tasks.tui-dev]
-run = 'mise run //apps/tui:tui-dev'
-
-[tasks.infra-dev-up]
-run = 'mise run //deployments/docker:infra-dev-up'
-
-[tasks.infra-dev-down]
-run = 'mise run //deployments/docker:infra-dev-down'
-
-[tasks.server-dev]
-depends = ['infra-dev-up']
-run = 'mise run //apps/server:server-dev'
-depends_post = ['infra-dev-down']
-
-[tasks.web-dev]
-run = [
-  { tasks = [
-    '//crates/dioxus-components:tailwind',
-    '//apps/web:web-dev',
-  ] },
-]
-
-[tasks.macos-dev]
-run = [
-  { tasks = [
-    '//crates/dioxus-components:tailwind',
-    '//apps/desktop:macos-dev',
-  ] },
-]
-
-[tasks.windows-dev]
-run = [
-  { tasks = [
-    '//crates/dioxus-components:tailwind',
-    '//apps/desktop:windows-dev',
-  ] },
-]
-
-[tasks.ios-dev]
-run = [{ tasks = ['//crates/dioxus-components:tailwind', '//apps/mobile:ios'] }]
-
-[tasks.android-dev]
-run = [
-  { tasks = [
-    '//crates/dioxus-components:tailwind',
-    '//apps/mobile:android',
-  ] },
-]
-
-[tasks.cli-build]
-run = 'mise run //apps/cli:cli-build'
-
-[tasks.tui-build]
-run = 'mise run //apps/tui:tui-build'
-
-[tasks.server-build]
-run = 'mise run //apps/server:server-build'
-
-[tasks.web-build]
-run = 'mise run //apps/web:web-build'
-
-[tasks.macos-build]
-run = 'mise run //apps/desktop:macos-build'
-
-[tasks.windows-build]
-run = 'mise run //apps/desktop:windows-build'
-
-[tasks.ios-build]
-run = 'mise run //apps/mobile:ios-build'
-
-[tasks.android-build]
-run = 'mise run //apps/mobile:android-build'
-
-[tasks.check]
-run = 'mbx check --workspace --all-features'
-
-[tasks.test]
-run = 'mbx test --workspace --all-features'
-
-[tasks.clippy]
-run = 'mbx clippy --workspace --all-features -- -D warnings'
-
-[tasks.fmt]
-run = 'mbx fmt --all -- --check'
+version = "2.8.0"

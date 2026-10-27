@@ -10,3 +10,5 @@ postgres = ["dep:toasty", "drydrop-domain/server", "drydrop-config/server"]
 drydrop-domain = { path = "../drydrop-domain", optional = true }
 drydrop-config = { path = "../drydrop-config", optional = true }
 toasty = { workspace = true, optional = true }
+lettre = { workspace = true }
+resend-rs = { workspace = true }
