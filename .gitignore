@@ -15,4 +15,7 @@ logs/
 
 deployments/docker/postgres/
 deployments/docker/redis/
-deployments/docker/rabbitmq/
+deployments/docker/iggy/
+deployments/docker/rustfs/
+deployments/docker/meilisearch/
+deployments/docker/openobserve/

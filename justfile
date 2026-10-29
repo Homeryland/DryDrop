@@ -1,32 +1,43 @@
 container := "docker"
+device := "iPhone 18 Pro Max"
+export MBX_BLAZE := "1"
 export PODMAN_COMPOSE_WARNING_LOGS := "false"
 
 bootstrap:
-  curl -fsSL https://ix.dev/blaze | sh
-  rustup target add wasm32-unknown-unknown aarch64-apple-ios aarch64-apple-ios-sim
-  pnpm install
-  pnpm exec tailwindcss -i crates/dioxus-components/tailwind.css -o crates/dioxus-components/assets/tailwind.css
+    @echo "Install blaze..."
+    curl -fsSL https://ix.dev/blaze | sh
+    @echo "Install target wasm32-unknown-unknown aarch64-apple-ios aarch64-apple-ios-sim..."
+    rustup target add wasm32-unknown-unknown aarch64-apple-ios aarch64-apple-ios-sim
+    @echo "pnpm install..."
+    pnpm install
+    pnpm exec tailwindcss -i crates/dioxus-components/tailwind.css -o crates/dioxus-components/assets/tailwind.css
 
 start container=container:
-  cd deployments/docker && {{container}} compose --env-file ../../config/.env.dev up -d
+    rm -rf postgres
+    rm -rf redis
+    rm -rf iggy
+    rm -rf rustfs
+    rm -rf meilisearch
+    rm -rf openobserve
+    cd deployments/docker && {{container}} compose --env-file ../../config/.env.dev up -d
 
 stop container=container:
-  cd deployments/docker && {{container}} compose --env-file ../../config/.env.dev down
+    cd deployments/docker && {{container}} compose --env-file ../../config/.env.dev down
 
 cli:
-  cargo blaze run -p cli
+    watchexec -r mbx run -j 4 -p cli
 
 tui:
-  cargo blaze run -p tui
+    watchexec -r mbx run -j 4 -p tui
 
 server:
-  cargo blaze run -p server
+    watchexec -r mbx run -j 4 -p server
 
 web:
-  dx run -p web
+    dx serve -p web
 
 macos:
-  dx run -p desktop
+    dx serve -p desktop
 
-ios:
-  dx run -p mobile --ios
+ios device=device:
+    dx serve -p mobile --ios --device {{device}} --target aarch64-apple-ios-sim

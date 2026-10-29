@@ -1,9 +1,0 @@
-[tasks."infra:up"]
-run = [
-  'rm -rf postgres',
-  'rm -rf redis',
-  'docker compose --env-file ../../config/.env.dev up -d',
-]
-
-[tasks."infra:down"]
-run = 'docker compose --env-file ../../config/.env.dev down'

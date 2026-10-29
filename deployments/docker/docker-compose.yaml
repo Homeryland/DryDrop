@@ -1,4 +1,5 @@
 services:
+
   postgres:
     image: postgres:18-alpine
     container_name: postgres
@@ -7,19 +8,73 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES__PASSWORD}
       POSTGRES_DB: ${POSTGRES__DB}
     volumes:
-      - ./postgres:/var/lib/postgresql
+      - ./postgres/data:/var/lib/postgresql
     ports:
       - 5432:5432
     restart: unless-stopped
+
   redis:
     image: redis:8-alpine
     container_name: redis
     volumes:
-      - ./redis:/data
+      - ./redis/data:/data
     ports:
       - 6379:6379
     restart: unless-stopped
+
   iggy:
     image: apache/iggy:0.9.0
+    container_name: iggy
+    environment:
+      IGGY_TCP_ADDRESS: 0.0.0.0:8090
+      IGGY_NODE_ADVERTISED_ADDRESS: ${IGGY_NODE_ADVERTISED_ADDRESS}
+      IGGY_ROOT_USERNAME: ${IGGY_ROOT_USERNAME}
+      IGGY_ROOT_PASSWORD: ${IGGY_ROOT_PASSWORD}
+      IGGY_SHARDING_CPU_ALLOCATION: all
+    volumes:
+      - ./iggy/data:/app/local_data
     ports:
       - 8090:8090
+    cap_add:
+      - SYS_NICE
+    security_opt:
+      - seccomp=unconfined
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  rustfs:
+    image: rustfs/rustfs:1.0.4
+    container_name: rustfs
+    volumes:
+      - ./rustfs/data:/data
+      - ./rustfs/logs:/app/logs
+    ports:
+      - 9000:9000
+      - 9001:9001
+    security_opt:
+      - "no-new-privileges:true"
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.56.0
+    container_name: meilisearch
+    volumes:
+      - ./meilisearch/data:/meili_data
+    environment:
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
+      MEILI_NO_ANALYTICS: "true"
+    ports:
+      - 7700:7700
+
+  openobserve:
+    image: openobserve/openobserve:v1.1.2
+    container_name: openobserve
+    volumes:
+      - ./openobserve/data:/data
+    environment:
+      ZO_DATA_DIR: ${ZO_DATA_DIR}
+      ZO_ROOT_USER_EMAIL: ${ZO_ROOT_USER_EMAIL}
+      ZO_ROOT_USER_PASSWORD: ${ZO_ROOT_USER_PASSWORD}
+    ports:
+      - 5080:5080
