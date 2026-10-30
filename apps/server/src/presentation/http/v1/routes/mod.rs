@@ -11,7 +11,7 @@ pub mod docs;
 pub mod health;
 
 pub fn create_routers(app_state: AppState) -> Router<()> {
-    let docs_enabled = app_state.mode == "dev";
+    let docs_enabled = true;
 
     let api_routes = Router::new().merge(health_router());
 

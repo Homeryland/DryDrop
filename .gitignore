@@ -9,6 +9,7 @@ logs/
 
 .fnox.local.toml
 .envrc
+.env
 .env.dev
 .env.test
 .env.prod

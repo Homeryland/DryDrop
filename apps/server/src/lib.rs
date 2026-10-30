@@ -80,4 +80,12 @@ async fn shutdown_signal() {
             info!("Shutdown signal received, stopping server...");
         },
     }
+
+    tokio::spawn(async move {
+        loop {
+            if tokio::signal::ctrl_c().await.is_err() {
+                return;
+            }
+        }
+    });
 }

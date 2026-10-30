@@ -1,5 +1,6 @@
 use drydrop_config::postgres::PostgresConfig;
 use toasty::Db;
+use tracing::warn;
 
 #[derive(Clone)]
 pub struct PgClient(Db);
@@ -24,7 +25,18 @@ impl PgClient {
             ))
             .connect(&db_url)
             .await?;
-        db.push_schema().await?;
+        if let Err(e) = db.push_schema().await {
+            // `push_schema` re-creates every table/type from the models, so it fails
+            // with `already exists` whenever the database already has the schema
+            // (e.g. watchexec restarts between `start` wipes). The database is either
+            // fresh (push succeeds) or fully populated (data dirs are wiped on start),
+            // so treat `already exists` as up-to-date instead of crashing.
+            if e.to_string().contains("already exists") {
+                warn!("database schema already exists, skipping push_schema");
+            } else {
+                return Err(e);
+            }
+        }
         Ok(PgClient(db))
     }
     pub fn inner(&self) -> &Db {

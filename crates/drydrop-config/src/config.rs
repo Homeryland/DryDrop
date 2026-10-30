@@ -9,7 +9,6 @@ use crate::{postgres::PostgresConfig, server::ServerConfig, web::WebConfig};
 #[derive(Debug, Deserialize, Clone)]
 #[cfg(feature = "server")]
 pub struct Config {
-    pub mode: String,
     pub jwt_secret: String,
     pub owner_email: String,
     pub web: WebConfig,
@@ -19,9 +18,10 @@ pub struct Config {
 
 impl Config {
     pub fn load() -> Result<Self, Whatever> {
-        let mode = std::env::var("RUST_ENV").unwrap_or_else(|_| "dev".into());
-        from_path(Path::new(&format!("../../config/.env.{}", mode)))
-            .with_whatever_context(|path| format!("Could not find {}", path))?;
+        let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../config/.env");
+        from_path(&path).with_whatever_context(|e| {
+            format!("Could not find env file {}: {e}", path.display())
+        })?;
         let config = config::Config::builder()
             .add_source(
                 config::Environment::default()
